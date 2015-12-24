@@ -1,12 +1,14 @@
-# And Projesi
+And Projesi
+======
 
-#### And, betik tabanlı(script oriented) programlama dili projesidir.
+And, betik tabanlı(script oriented) programlama dili projesidir.
 
 Bu projede temel hedefim;  
-	1.[Abstract Syntax Tree](https://en.wikipedia.org/wiki/Abstract_syntax_tree)  
-	2.[Semantic analysis](https://en.wikipedia.org/wiki/Semantic_analysis_%28compilers%29)  
-	3.[Interpreters](https://en.wikipedia.org/wiki/Interpreter_%28computing%29)  
-	4.[Parsing](https://en.wikipedia.org/wiki/Parsing)
+	1.[Parsing](https://en.wikipedia.org/wiki/Parsing)  
+	2.[Interpreters](https://en.wikipedia.org/wiki/Interpreter_%28computing%29)  
+	3.[Lexical analysis](https://en.wikipedia.org/wiki/Lexical_analysis)  
+	4.[Semantic analysis](https://en.wikipedia.org/wiki/Semantic_analysis_%28compilers%29)  
+	5.[Abstract Syntax Tree](https://en.wikipedia.org/wiki/Abstract_syntax_tree)
 
 .. gibi konularda tecrübe edinebilmek ve ortaya somut bir çalışma koymaktır.
 
@@ -22,3 +24,9 @@ func main(args) {
 
 Teorik araştırma ve çalışmalarla beraber götürüyorum projeyi  
 Yavaş ilerleyecektir.
+
+Durum
+------
+
+[Lexer](https://en.wikipedia.org/wiki/Lexical_analysis) başlangıç için tatmin edici düzeyde. Sorunları, geliştirilmesi gereken noktaları elbette var.
+[Parser](https://en.wikipedia.org/wiki/Parsing) üzerinde çalışıyorum.
