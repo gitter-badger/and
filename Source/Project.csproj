@@ -48,6 +48,8 @@
     <Compile Include="Lexer\Token.cs" />
     <Compile Include="Lexer\Type.cs" />
     <Compile Include="Main.cs" />
+    <Compile Include="Parser\AstNode.cs" />
+    <Compile Include="Parser\Parser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
