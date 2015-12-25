@@ -4,14 +4,13 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-using System.Diagnostics;
-
 namespace And {
     using System;
-    using System.Collections.Generic;
     using System.IO;
     using System.Linq;
+    using System.Diagnostics;
     using static System.Console;
+    using System.Collections.Generic;
 
     public class And
     {
@@ -20,9 +19,16 @@ namespace And {
             if (args.Length > 0) {
                 if (!File.Exists(args[0]))
                     return;
+
+                var sw = new Stopwatch();
+                sw.Start();
+
+                    string tokens = GetTokens(File.ReadAllText(args[0]));
                 
-                string tokens = GetTokens(File.ReadAllText(args[0]));
-                Write(tokens.Substring(0, tokens.Length - 1));
+                sw.Stop();
+                ElapsedTime = sw.ElapsedMilliseconds;
+                Write(tokens.Substring(0, tokens.Length - 2) + $"\n\nElapsed Time: {ElapsedTime} ms.\n" +
+                                                                "Done.\n");
                 return;
             }
 
