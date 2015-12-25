@@ -28,5 +28,5 @@ Yavaş ilerleyecektir.
 Durum
 ------
 
-[Lexer](https://en.wikipedia.org/wiki/Lexical_analysis) başlangıç için tatmin edici düzeyde. Sorunları, geliştirilmesi gereken noktaları elbette var.
+[Lexer](https://en.wikipedia.org/wiki/Lexical_analysis) başlangıç için tatmin edici düzeyde. Sorunları, geliştirilmesi gereken noktaları elbette var.  
 [Parser](https://en.wikipedia.org/wiki/Parsing) üzerinde çalışıyorum.
