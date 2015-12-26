@@ -14,16 +14,18 @@ namespace And {
         Comment,
         OpenParen,
         OpenBrace,
+        Identifier,
         CloseParen,
         CloseBrace,
         AssignOperator,
         CloseBracket,
         OpenBracket,
         Comparison,
+        Undefined,
         SemiColon,
         Operator,
         Postfix,
         Modulus,
-        Colon
+        Colon,
     }
 }
