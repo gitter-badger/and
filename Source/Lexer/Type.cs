@@ -26,6 +26,6 @@ namespace And {
         Operator,
         Postfix,
         Modulus,
-        Colon,
+        Colon
     }
 }
