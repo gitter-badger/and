@@ -31,15 +31,19 @@ namespace And {
                     tokens.AddLast(ScanNumber());
 
                 // --> String
-                else if ((char)(Peek()) == '\"')
+                else if ((char)Peek() == '\"')
                     tokens.AddLast(ScanString());
 
                 // -->   #
                 else if ((char)Peek() == '#')
-                    tokens.AddLast(new Token(TokenType.Comment, ((char)Read()).ToString()));
+                    tokens.AddLast(SingleLineComment());
+
+                // -->   /*
+                else if ((char)Peek() == '/' && ((char)Peek(1) == '*'))
+                    tokens.AddLast(MultiLineComment());
 
                 // -->   ;
-                else if ((char)Peek() == ';')
+                else if ((char)Peek() == ';' || ((char)Peek() == '\n'))
                     tokens.AddLast(new Token(TokenType.SemiColon, ((char)Read()).ToString()));
 
                 // -->   :
@@ -137,7 +141,7 @@ namespace And {
                         : new Token(TokenType.Operator, ((char)Read()).ToString()));
 
                else {
-                    Console.WriteLine($"Unexpected {(char)Peek()} encountered.");
+                    Console.WriteLine($"Unexpected token: '{(char)Peek()}'");
                     Read();
                 }
 
@@ -146,10 +150,29 @@ namespace And {
 
             return tokens;
         }
+        
+        private Token SingleLineComment()
+        {
+            Read();
+            string temp = string.Empty;
+            while (Peek() != '\n' && _position < _sourceCode.Length) {
+                temp += ((char)Read()).ToString();
+            }
 
-        // TODO: Single and multi line comments
-        private Token SingleLineComment() => null;
-        private Token MultilineComment() => null;
+            Read();
+            return new Token(TokenType.Comment, temp);
+        }
+
+        private Token MultiLineComment()
+        {
+            Read(2);
+            string temp = string.Empty;
+            while (Peek() != '*' && Peek(1) != '/' && _position < _sourceCode.Length)
+                    temp += ((char)Read()).ToString();
+            
+            Read(2);
+            return new Token(TokenType.Comment, temp);
+        }
 
         private Token ScanNumber()
         {
@@ -177,16 +200,22 @@ namespace And {
                 Read();
         }
 
-        private int Read() 
-            => _position < _sourceCode.Length ? _sourceCode[_position++] : -1;
+        private int Read()
+            => _position < _sourceCode.Length
+               ? _sourceCode[_position++]
+               : -1;
 
-        private int Peek() 
-            => _position < _sourceCode.Length ? _sourceCode[_position] : -1;
+        private int Read(byte iter = 1)
+            => _position < _sourceCode.Length
+               ? _sourceCode[_position += iter]
+               : -1;
 
-        private int Peek(int iter) 
-            => _position + iter < _sourceCode.Length ? _sourceCode[_position + iter] : -1;
+        private int Peek(byte iter = 0)
+            => _position + iter < _sourceCode.Length 
+               ? _sourceCode[_position + iter]
+               : -1;
 
-        private bool CanAdvance(int count = 1) 
+        private bool CanAdvance(byte count = 1) 
             => _position + count < _sourceCode.Length;
     }
 }
