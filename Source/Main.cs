@@ -47,6 +47,10 @@ namespace And {
                         Clear();
                         Main(new string[] {});
                         break;
+                    case "exit":
+                    case "quit":
+                        Environment.Exit(-1);
+                        break;
                     default:
                         if (!File.Exists(inputSource)) {
                             Write($"File '{Path.GetFileName(inputSource)}' doesn't exists.\n\n");
