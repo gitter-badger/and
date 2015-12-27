@@ -43,7 +43,7 @@ namespace And {
                     tokens.AddLast(MultiLineComment());
 
                 // -->   ;
-                else if ((char)Peek() == ';' || ((char)Peek() == '\n'))
+                else if ((char)Peek() == ';')
                     tokens.AddLast(new Token(TokenType.SemiColon, ((char)Read()).ToString()));
 
                 // -->   :
@@ -203,17 +203,17 @@ namespace And {
         private int Read()
             => _position < _sourceCode.Length
                ? _sourceCode[_position++]
-               : -1;
+               : '\0'; // if not, return null char instead of -1
 
         private int Read(byte iter = 1)
             => _position < _sourceCode.Length
                ? _sourceCode[_position += iter]
-               : -1;
+               : '\0';
 
-        private int Peek(byte iter = 0)
+        private int Peek(byte iter = 0) 
             => _position + iter < _sourceCode.Length 
                ? _sourceCode[_position + iter]
-               : -1;
+               : '\0';
 
         private bool CanAdvance(byte count = 1) 
             => _position + count < _sourceCode.Length;
