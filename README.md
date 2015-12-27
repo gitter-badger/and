@@ -1,3 +1,4 @@
+<img src="http://i.hizliresim.com/YrjYYl.png" alt="And logo" height="110">
 And Projesi
 ======
 
@@ -29,4 +30,4 @@ Durum
 ------
 
 [Lexer](https://en.wikipedia.org/wiki/Lexical_analysis) başlangıç için tatmin edici düzeyde. Sorunları, geliştirilmesi gereken noktaları elbette var.  
-[Parser](https://en.wikipedia.org/wiki/Parsing) üzerinde çalışıyorum.
+[Parser](https://en.wikipedia.org/wiki/Parsing) ve [AST](https://en.wikipedia.org/wiki/Abstract_syntax_tree) üzerinde çalışıyorum.
