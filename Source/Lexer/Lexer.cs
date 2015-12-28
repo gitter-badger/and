@@ -4,6 +4,8 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
+using System.Text;
+
 namespace And {
     using System;
     using System.Collections.Generic;
@@ -182,17 +184,52 @@ namespace And {
 
             return new Token(TokenType.Number, temp);
         }
-
-        // TODO: Catch escape characters.
+        
         private Token ScanString() {
-            Read();
-            string temp = string.Empty;
+            int begin = Read();
+            var temp = new StringBuilder();
 
-            while (CanAdvance() && Peek() != '\"')
-                temp += ((char)Read()).ToString();
+            while (CanAdvance() && Peek() != begin)
+            {
+                switch (Peek())
+                {
+                    case '\\':
+                        if (begin == '"')
+                            switch (Peek(1))
+                            {
+                                case 'n':   // New line
+                                    temp.Append("\n");
+                                    Read(2);
+                                    break;
+                                case 't':   // Horizontal tab
+                                    temp.Append("\t");
+                                    Read(2);
+                                    break;
+                                case 'r':   // Carriage return
+                                    temp.Append("\r");
+                                    Read(2);
+                                    break;
+                                case 'a':   // Bell (alert)
+                                    temp.Append("\a");
+                                    Read(2);
+                                    break;
+                                case 'b':   // Backspace
+                                    temp.Append("\b");
+                                    Read(2);
+                                    break;
+                                default:
+                                    Console.WriteLine(@"Unexpected escape sequence: \" + (char)Peek(1));
+                                    break;
+                            }
+                        else
+                            temp.Append((char)Read(2));
+                        break;
+                }
+                temp.Append(((char)Read()).ToString());
+            }
 
             Read();
-            return new Token(TokenType.String, temp);
+            return new Token(TokenType.String, temp.ToString());
         }
 
         private void SkipWhitespace() {
