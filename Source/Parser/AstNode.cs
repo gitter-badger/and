@@ -10,11 +10,10 @@ namespace And
 
     public abstract class AstNode
     {
-        public LinkedList<AstNode> Children { get; private set;}
+        public List<AstNode> Children { get; private set;}
 
-        protected AstNode()
-        {
-            Children = new LinkedList<AstNode>();
+        protected AstNode() {
+            Children = new List<AstNode>();
         }
     }
 }

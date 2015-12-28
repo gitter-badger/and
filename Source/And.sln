@@ -16,4 +16,7 @@ Global
 		{160B3128-735C-44FA-9AAE-F11AFAD44223}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{160B3128-735C-44FA-9AAE-F11AFAD44223}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
 EndGlobal

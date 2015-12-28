@@ -1,0 +1,5 @@
+# Main fonksiyonu, programın ana girişini tanımlar.
+
+func main() {
+    writeln("Hello, world!");
+}
