@@ -40,6 +40,11 @@ namespace And {
                 var inputSource = ReadLine();
 
                 switch (inputSource) {
+                  #if DEBUG
+                    case "lexical.and":
+                        inputSource = $"{Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)}\\Github\\And\\Tests\\lexical.and";
+                        goto default;
+                  #endif
                     case "":
                         goto inputSource;
                     case "cls":
