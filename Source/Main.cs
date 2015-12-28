@@ -59,22 +59,18 @@ namespace And {
                     default:
                         if (!File.Exists(inputSource)) {
                             Write($"File '{Path.GetFileName(inputSource)}' doesn't exists.\n\n");
-                            goto inputSource;
                         }
-
-                        if (Path.GetExtension(inputSource) != ".and") {
-                            Write("Incorrect file. File extension must be .and\n\n");
-                            goto inputSource;
+                        else if (Path.GetExtension(inputSource) != ".and") {
+                            Write("File extension must be .and\n\n");
+                        } else {
+                            Write(Environment.NewLine);
+                            string tokens = GetTokens(File.ReadAllText(inputSource));
+                            WriteLine(tokens.Substring(0, tokens.Length - 2) /* This will remove the last empty lines */
+                                                                 + $"\n\nElapsed Time: {ElapsedTime} milisecond.\n"
+                                                                 + "Done.\n");
                         }
                         break;
                 }
-                
-                Write(Environment.NewLine);
-                string tokens = GetTokens(File.ReadAllText(inputSource));
-                WriteLine(tokens.Substring(0, tokens.Length - 2) /* This will remove the last empty lines */ 
-                                                                 + $"\n\nElapsed Time: {ElapsedTime} milisecond.\n"
-                                                                 + "Done.\n");
-
             } while (args.Length == 0);
         }
 
