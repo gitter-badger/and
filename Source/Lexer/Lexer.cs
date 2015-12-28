@@ -19,7 +19,6 @@ namespace And {
             _sourceCode = sourceCode;
         }
         
-        // TODO: Convert If-else to Switch statement.
         public LinkedList<Token> Tokenize()
         {
             var tokens = new LinkedList<Token>();
@@ -31,6 +30,10 @@ namespace And {
                 // --> Number
                 if (char.IsDigit((char)Peek()))
                     tokens.AddLast(ScanNumber());
+
+                // --> Identifier
+                else if (char.IsLetter((char) Peek()))
+                    tokens.AddLast(ScanIdentifier());
 
                 // --> String
                 else if ((char)Peek() == '\"')
@@ -73,17 +76,15 @@ namespace And {
                     tokens.AddLast(new Token(TokenType.Operator, ((char)Read()).ToString()));
 
                 // --> &&
-                else if ((char)Peek() == '&' && (char)Peek(1) == '&') {
+                else if ((char)Peek() == '&' && (char)Peek(1) == '&')
                     tokens.AddLast(new Token(TokenType.Comparison, (char)Read() + ((char)Read()).ToString()));
-                }
 
                 // --> ||
-                else if ((char)Peek() == '|' && (char)Peek(1) == '|') {
+                else if ((char)Peek() == '|' && (char)Peek(1) == '|')
                     tokens.AddLast(new Token(TokenType.Comparison, (char)Read() + ((char)Read()).ToString()));
-                }
 
                 // -->   (, )
-                else if ((char) Peek() == '(' || (char) Peek() == ')') {
+                else if ((char)Peek() == '(' || (char)Peek() == ')') {
                     TokenType type = Peek() == '(' ? TokenType.OpenParen : TokenType.CloseParen;
                     tokens.AddLast(new Token(type, ((char)Read()).ToString()));
                 }
@@ -102,9 +103,9 @@ namespace And {
 
                 // -->   =, ==
                 else if ((char)Peek() == '=')
-                    tokens.AddLast((char) Peek(1) == '='
-                        ? new Token(TokenType.Comparison, (char) Read() + ((char) Read()).ToString())
-                        : new Token(TokenType.AssignOperator, ((char) Read()).ToString()));
+                    tokens.AddLast((char)Peek(1) == '='
+                        ? new Token(TokenType.Comparison, (char)Read() + ((char)Read()).ToString())
+                        : new Token(TokenType.AssignOperator, ((char)Read()).ToString()));
 
                 // -->   !, !=
                 else if ((char)Peek() == '!')
@@ -142,15 +143,26 @@ namespace And {
                         ? new Token(TokenType.Postfix, (char)Read() + ((char)Read()).ToString())
                         : new Token(TokenType.Operator, ((char)Read()).ToString()));
 
-               else {
+                else {
                     Console.WriteLine($"Unexpected token: '{(char)Peek()}'");
                     Read();
                 }
-
                 SkipWhitespace();
             }
 
             return tokens;
+        }
+
+        private Token ScanIdentifier()
+        {
+            string temp = string.Empty;
+            while(_position < _sourceCode.Length 
+                  && (char.IsLetterOrDigit((char)Peek())
+                  || "_".Contains(((char)Peek()).ToString())))
+
+                temp += (char)Read();
+
+            return new Token(TokenType.Identifier, temp);
         }
         
         private Token SingleLineComment()

@@ -26,8 +26,8 @@ namespace And {
                     string tokens = GetTokens(File.ReadAllText(args[0]));
                 
                 sw.Stop();
-                ElapsedTime = sw.ElapsedMilliseconds;
-                Write(tokens.Substring(0, tokens.Length - 2) + $"\n\nElapsed Time: {ElapsedTime} ms.\n" +
+                ElapsedTime = sw.Elapsed;
+                Write(tokens.Substring(0, tokens.Length - 2) + $"\n\nElapsed Time: {ElapsedTime}\n" +
                                                                 "Done.\n");
                 return;
             }
@@ -66,7 +66,7 @@ namespace And {
                             Write(Environment.NewLine);
                             string tokens = GetTokens(File.ReadAllText(inputSource));
                             WriteLine(tokens.Substring(0, tokens.Length - 2) /* This will remove the last empty lines */
-                                                                 + $"\n\nElapsed Time: {ElapsedTime} milisecond.\n"
+                                                                 + $"\n\nElapsed Time: {ElapsedTime}\n"
                                                                  + "Done.\n");
                         }
                         break;
@@ -83,11 +83,11 @@ namespace And {
                 LinkedList<Token> tokens = lexer.Tokenize();
 
             sw.Stop();
-            ElapsedTime = sw.ElapsedMilliseconds;
+            ElapsedTime = sw.Elapsed;
 
             return tokens.Aggregate(string.Empty, (current, i) => current + $"Type: {i.Type}\n" + $"Value: {i.Value}\n\n");
         }
 
-        private static double ElapsedTime { get; set; }
+        private static TimeSpan ElapsedTime { get; set; }
     }
 }
