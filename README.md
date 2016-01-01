@@ -31,3 +31,8 @@ Durum [![](https://ci.appveyor.com/api/projects/status/bs3n424y3bk1ejg4?svg=true
 
 [Lexer](https://en.wikipedia.org/wiki/Lexical_analysis) başlangıç için tatmin edici düzeyde. Sorunları, geliştirilmesi gereken noktaları elbette var.  
 [Parser](https://en.wikipedia.org/wiki/Parsing) ve [AST](https://en.wikipedia.org/wiki/Abstract_syntax_tree) üzerinde çalışıyorum.
+
+İletişim
+------
+
+Herhangi bir soru, mesaj vs. için irc.ertugrulseyhan.com:6667 irc sunucusuna gelebilir veya hi@ertugrulseyhan.com adresine mail atarak benimle iletişime geçebilirsiniz.
