@@ -6,8 +6,5 @@ Düzeltilecekler sorunlar
  2) Kaçış dizisinde ard arda kullanımda 2. dizi okunmuyor.
  		Örn: "Hello\n\tWorld!\a"  -->   \n okunurken, \t dizisi es geçiliyor.
  			 "Hello\n \tWorld!\a" -->   Sorun yok, okuyor. Ancak istediğimiz bu değil.
- 3) ScanNumber fonksiyonu ondalıklı sayı tiplerini okumuyor.
- 		Örn: 1685  --> Sorun yok.
- 			 16.85 --> Sorunlu.
 
 2. sorun ScanString fonksiyonunda kaçış dizileri parse edilirken oluşan bir hatadan kaynaklanıyor muhtemelen.

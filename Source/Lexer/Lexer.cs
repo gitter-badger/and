@@ -168,8 +168,17 @@ namespace And {
         private Token ScanNumber()
         {
             string temp = string.Empty;
-            while (CanAdvance() && char.IsDigit((char) Peek()))
-                temp += ((char) Read()).ToString();
+            while (CanAdvance() && char.IsDigit((char)Peek()) || (char)Peek() == '.') {
+                if ((char)Peek() == '.') {
+                    Read(); temp += ".";
+                    while(char.IsDigit((char)Peek()))
+                        temp += ((char)Read()).ToString();
+
+                    return new Token(TokenType.Float, temp);
+                }
+
+                temp += ((char)Read()).ToString();
+            }
 
             return new Token(TokenType.Number, temp);
         }
