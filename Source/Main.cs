@@ -8,9 +8,10 @@ namespace And {
     using System;
     using System.IO;
     using System.Linq;
+    using System.Text;
     using System.Diagnostics;
-    using static System.Console;
     using System.Collections.Generic;
+    using static System.Console;
 
     public class And
     {
@@ -23,7 +24,7 @@ namespace And {
                 var sw = new Stopwatch();
                 sw.Start();
 
-                    string tokens = GetTokens(File.ReadAllText(args[0]));
+                    string tokens = GetTokens(File.ReadAllText(args[0], Encoding.UTF8));
                 
                 sw.Stop();
                 ElapsedTime = sw.Elapsed;
@@ -63,8 +64,10 @@ namespace And {
                         else if (Path.GetExtension(inputSource) != ".and") {
                             Write("File extension must be .and\n\n");
                         } else {
+                            string tokens = GetTokens(File.ReadAllText(inputSource, Encoding.UTF8));
+                            if (tokens.Length == 0) break;
+
                             Write(Environment.NewLine);
-                            string tokens = GetTokens(File.ReadAllText(inputSource));
                             WriteLine(tokens.Substring(0, tokens.Length - 2) /* This will remove the last empty lines */
                                                                  + $"\n\nElapsed Time: {ElapsedTime}\n"
                                                                  + "Done.\n");
