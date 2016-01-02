@@ -7,17 +7,16 @@
 namespace And {
     public enum TokenType {
         // TODO: Support for Bitwise operators and more Assignment operators. 
-        Not,
         Comma,
-        String,
         Number,
+        String,
         Comment,
+        Keyword,
         OpenParen,
         OpenBrace,
         Identifier,
         CloseParen,
         CloseBrace,
-        AssignOperator,
         CloseBracket,
         OpenBracket,
         Comparison,
@@ -25,7 +24,7 @@ namespace And {
         SemiColon,
         Operator,
         Postfix,
-        Modulus,
-        Colon
+        Colon,
+        Float
     }
 }

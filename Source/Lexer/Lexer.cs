@@ -4,10 +4,9 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-using System.Text;
-
 namespace And {
     using System;
+    using System.Text;
     using System.Collections.Generic;
 
     public class Lexer
@@ -18,142 +17,104 @@ namespace And {
         public Lexer(string sourceCode) {
             _sourceCode = sourceCode;
         }
+
+        private Token ScanToken()
+        {
+            char currentChar = (char)Peek();
+            switch (currentChar) {
+                case '#':
+                    return SingleLineComment();
+                case '\'':
+                case '"':
+                    return ScanString();
+                case '0': case '1': case '2': case '3': case '4':
+                case '5': case '6': case '7': case '8': case '9':
+                    return ScanNumber();
+                case '+': case '-': case '*': case '/':
+                case '.': case '=': case '%':
+                case '<': case '>':
+                case '&': case '|':
+                case '!': case '?':
+                    return ScanOperator();
+                case ';':
+                    Read();
+                    return new Token(TokenType.SemiColon, ";");
+                case ':':
+                    Read();
+                    return new Token(TokenType.Colon, ":");
+                case ',':
+                    Read();
+                    return new Token(TokenType.Comma, ",");
+                case '(':
+                    Read();
+                    return new Token(TokenType.OpenParen, "(");
+                case ')':
+                    Read();
+                    return new Token(TokenType.CloseParen, ")");
+                case '[':
+                    Read();
+                    return new Token(TokenType.OpenBracket, "[");
+                case ']':
+                    Read();
+                    return new Token(TokenType.CloseBracket, "]");
+                case '{':
+                    Read();
+                    return new Token(TokenType.OpenBrace, "{");
+                case '}':
+                    Read();
+                    return new Token(TokenType.CloseBrace, "}");
+                default:
+                    if (char.IsLetter(currentChar))
+                        return Identifier();
+
+                    Console.WriteLine($"Unexpected token: '{(char)Read()}'");
+                    return null;
+            }
+        }
+
+        private Token ScanOperator()
+        {
+            char currentChar = (char)Read();
+            string twoChar = currentChar + ((char)Peek()).ToString();
+
+            switch (twoChar) {
+                case "/*":
+                    Read();
+                    return MultiLineComment();
+                case "&&": case "||":
+                case "==": case "!=":
+                case "<=": case ">=":
+                    Read();
+                    return new Token(TokenType.Comparison, twoChar);
+                case "++": case "--":
+                    Read();
+                    return new Token(TokenType.Postfix, twoChar);
+            }
+
+            switch (currentChar) {
+                case '=': case '+': case '-': case '*': case '/': case '.':
+                case '%': case '?': case '!': case '<': case '>':
+                    return new Token(TokenType.Operator, currentChar.ToString());
+            }
+
+            return null;
+        }
         
         public LinkedList<Token> Tokenize()
         {
             var tokens = new LinkedList<Token>();
-            
             SkipWhitespace();
-
-            while (CanAdvance())
-            {
-                // --> Number
-                if (char.IsDigit((char)Peek()))
-                    tokens.AddLast(ScanNumber());
-
-                // --> Identifier
-                else if (char.IsLetter((char) Peek()))
-                    tokens.AddLast(ScanIdentifier());
-
-                // --> String
-                else if ((char)Peek() == '\"')
-                    tokens.AddLast(ScanString());
-
-                // -->   #
-                else if ((char)Peek() == '#')
-                    tokens.AddLast(SingleLineComment());
-
-                // -->   /*
-                else if ((char)Peek() == '/' && ((char)Peek(1) == '*'))
-                    tokens.AddLast(MultiLineComment());
-
-                // -->   ;
-                else if ((char)Peek() == ';')
-                    tokens.AddLast(new Token(TokenType.SemiColon, ((char)Read()).ToString()));
-
-                // -->   :
-                else if ((char)Peek() == ':')
-                    tokens.AddLast(new Token(TokenType.Colon, ((char)Read()).ToString()));
-
-                // -->   ,
-                else if ((char)Peek() == ',')
-                    tokens.AddLast(new Token(TokenType.Comma, ((char)Read()).ToString()));
-
-                // -->   /
-                else if ((char)Peek() == '/')
-                    tokens.AddLast(new Token(TokenType.Operator, ((char)Read()).ToString()));
-
-                // -->   *
-                else if ((char)Peek() == '*')
-                    tokens.AddLast(new Token(TokenType.Operator, ((char)Read()).ToString()));
-
-                // -->   %
-                else if ((char)Peek() == '%')
-                    tokens.AddLast(new Token(TokenType.Modulus, ((char)Read()).ToString()));
-
-                // -->   ?
-                else if ((char)Peek() == '?')
-                    tokens.AddLast(new Token(TokenType.Operator, ((char)Read()).ToString()));
-
-                // --> &&
-                else if ((char)Peek() == '&' && (char)Peek(1) == '&')
-                    tokens.AddLast(new Token(TokenType.Comparison, (char)Read() + ((char)Read()).ToString()));
-
-                // --> ||
-                else if ((char)Peek() == '|' && (char)Peek(1) == '|')
-                    tokens.AddLast(new Token(TokenType.Comparison, (char)Read() + ((char)Read()).ToString()));
-
-                // -->   (, )
-                else if ((char)Peek() == '(' || (char)Peek() == ')') {
-                    TokenType type = Peek() == '(' ? TokenType.OpenParen : TokenType.CloseParen;
-                    tokens.AddLast(new Token(type, ((char)Read()).ToString()));
-                }
-
-                // -->   [, ]
-                else if ((char)Peek() == '[' || (char)Peek() == ']') {
-                    TokenType type = Peek() == '[' ? TokenType.OpenBracket : TokenType.CloseBracket;
-                    tokens.AddLast(new Token(type, ((char)Read()).ToString()));
-                }
-
-                // -->   {, }
-                else if ((char)Peek() == '{' || (char)Peek() == '}') {
-                    TokenType type = Peek() == '{' ? TokenType.OpenBrace : TokenType.CloseBrace;
-                    tokens.AddLast(new Token(type, ((char)Read()).ToString()));
-                }
-
-                // -->   =, ==
-                else if ((char)Peek() == '=')
-                    tokens.AddLast((char)Peek(1) == '='
-                        ? new Token(TokenType.Comparison, (char)Read() + ((char)Read()).ToString())
-                        : new Token(TokenType.AssignOperator, ((char)Read()).ToString()));
-
-                // -->   !, !=
-                else if ((char)Peek() == '!')
-                    tokens.AddLast((char)Peek(1) == '='
-                        ? new Token(TokenType.Comparison, (char)Read() + ((char)Read()).ToString())
-                        : new Token(TokenType.Not, ((char)Read()).ToString()));
-
-                // -->   <, <=
-                else if ((char)Peek() == '<')
-                    tokens.AddLast((char)Peek(1) == '='
-                        ? new Token(TokenType.Comparison, (char)Read() + ((char)Read()).ToString())
-                        : new Token(TokenType.Comparison, ((char)Read()).ToString()));
-
-                // -->   <, <=
-                else if ((char)Peek() == '<')
-                    tokens.AddLast((char)Peek(1) == '='
-                        ? new Token(TokenType.Comparison, (char)Read() + ((char)Read()).ToString())
-                        : new Token(TokenType.Comparison, ((char)Read()).ToString()));
-
-                // -->   >, >=
-                else if ((char)Peek() == '>')
-                    tokens.AddLast((char)Peek(1) == '='
-                        ? new Token(TokenType.Comparison, (char)Read() + ((char)Read()).ToString())
-                        : new Token(TokenType.Comparison, ((char)Read()).ToString()));
-
-                // -->   +, ++
-                else if ((char)Peek() == '+')
-                    tokens.AddLast((char)Peek(1) == '+'
-                        ? new Token(TokenType.Postfix, (char)Read() + ((char)Read()).ToString())
-                        : new Token(TokenType.Operator, ((char)Read()).ToString()));
-
-                // -->   -, --
-                else if ((char)Peek() == '-')
-                    tokens.AddLast((char)Peek(1) == '-'
-                        ? new Token(TokenType.Postfix, (char)Read() + ((char)Read()).ToString())
-                        : new Token(TokenType.Operator, ((char)Read()).ToString()));
-
-                else {
-                    Console.WriteLine($"Unexpected token: '{(char)Peek()}'");
-                    Read();
-                }
+            while (CanAdvance()) {
+                Token token = ScanToken();
+                if (token != null)
+                    tokens.AddLast(token);
                 SkipWhitespace();
             }
 
             return tokens;
         }
 
-        private Token ScanIdentifier()
+        private Token Identifier()
         {
             string temp = string.Empty;
             while(_position < _sourceCode.Length 
@@ -162,7 +123,24 @@ namespace And {
 
                 temp += (char)Read();
 
-            return new Token(TokenType.Identifier, temp);
+            switch (temp.ToLower()) {
+                case "if":
+                case "use":
+                case "for":
+                case "func":
+                case "else":
+                case "true":
+                case "break":
+                case "false":
+                case "while":
+                case "return":
+                case "default":
+                case "foreach":
+                case "continue":
+                    return new Token(TokenType.Keyword, temp);
+                default:
+                    return new Token(TokenType.Identifier, temp);
+            }
         }
         
         private Token SingleLineComment()
@@ -179,7 +157,6 @@ namespace And {
 
         private Token MultiLineComment()
         {
-            Read(2);
             string temp = string.Empty;
             while (Peek() != '*' && Peek(1) != '/' && _position < _sourceCode.Length)
                     temp += ((char)Read()).ToString();
@@ -201,8 +178,7 @@ namespace And {
             int begin = Read();
             var temp = new StringBuilder();
 
-            while (CanAdvance() && Peek() != begin)
-            {
+            while (CanAdvance() && Peek() != begin) {
                 switch (Peek())
                 {
                     case '\\':
