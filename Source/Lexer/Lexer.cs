@@ -116,14 +116,14 @@ namespace And {
 
         private Token Identifier()
         {
-            string temp = string.Empty;
+            var temp = new StringBuilder();
             while(_position < _sourceCode.Length 
                   && (char.IsLetterOrDigit((char)Peek())
                   || "_".Contains(((char)Peek()).ToString())))
 
-                temp += (char)Read();
+                temp.Append((char)Read());
 
-            switch (temp.ToLower()) {
+            switch (temp.ToString().ToLower()) {
                 case "if":
                 case "use":
                 case "for":
@@ -137,52 +137,52 @@ namespace And {
                 case "default":
                 case "foreach":
                 case "continue":
-                    return new Token(TokenType.Keyword, temp);
+                    return new Token(TokenType.Keyword, temp.ToString());
                 default:
-                    return new Token(TokenType.Identifier, temp);
+                    return new Token(TokenType.Identifier, temp.ToString());
             }
         }
         
         private Token SingleLineComment()
         {
             Read();
-            string temp = string.Empty;
+            var temp = new StringBuilder();
             while (Peek() != '\n' && _position < _sourceCode.Length) {
-                temp += ((char)Read()).ToString();
+                temp.Append(((char)Read()).ToString());
             }
 
             Read();
-            return new Token(TokenType.Comment, temp);
+            return new Token(TokenType.Comment, temp.ToString());
         }
 
         private Token MultiLineComment()
         {
-            string temp = string.Empty;
+            var temp = new StringBuilder();
             while (Peek() != '*' && Peek(1) != '/' && _position < _sourceCode.Length)
-                    temp += ((char)Read()).ToString();
+                temp.Append((char)Read());
             
             Read(2);
-            return new Token(TokenType.Comment, temp);
+            return new Token(TokenType.Comment, temp.ToString());
         }
 
         private Token ScanNumber()
         {
-            string temp = string.Empty;
+            var temp = new StringBuilder();
             while (CanAdvance() && char.IsDigit((char)Peek()) || (char)Peek() == '.') {
                 if ((char)Peek() == '.') {
-                    Read(); temp += ".";
+                    Read(); temp.Append(".");
                     while(char.IsDigit((char)Peek()))
-                        temp += ((char)Read()).ToString();
+                        temp.Append((char)Read());
 
-                    return new Token(TokenType.Float, temp);
+                    return new Token(TokenType.Float, temp.ToString());
                 }
 
-                temp += ((char)Read()).ToString();
+                temp.Append((char)Read());
             }
 
-            return new Token(TokenType.Number, temp);
+            return new Token(TokenType.Number, temp.ToString());
         }
-        
+
         private Token ScanString() {
             int begin = Read();
             var temp = new StringBuilder();
