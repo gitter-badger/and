@@ -187,45 +187,35 @@ namespace And {
             int begin = Read();
             var temp = new StringBuilder();
 
-            while (CanAdvance() && Peek() != begin) {
-                switch (Peek())
-                {
-                    case '\\':
-                        if (begin == '"')
-                            switch (Peek(1))
-                            {
-                                case 'n':   // New line
-                                    temp.Append("\n");
-                                    Read(2);
-                                    break;
-                                case 't':   // Horizontal tab
-                                    temp.Append("\t");
-                                    Read(2);
-                                    break;
-                                case 'r':   // Carriage return
-                                    temp.Append("\r");
-                                    Read(2);
-                                    break;
-                                case 'a':   // Bell (alert)
-                                    temp.Append("\a");
-                                    Read(2);
-                                    break;
-                                case 'b':   // Backspace
-                                    temp.Append("\b");
-                                    Read(2);
-                                    break;
-                                default:
-                                    Console.WriteLine(@"Unexpected escape sequence: \" + (char)Peek(1));
-                                    break;
-                            }
-                        else
-                            temp.Append((char)Read(2));
-                        break;
+            while(CanAdvance() && Peek() != begin) {
+                if(Peek() == '\\') {
+                    Read();
+                    char escapeSequence = (char)Read();
+                    switch (escapeSequence) {
+                        case 'n': // New line
+                            temp.Append("\n");
+                            break;
+                        case 't': // Horizontal tab
+                            temp.Append("\t");
+                            break;
+                        case 'r': // Carriage return
+                            temp.Append("\r");
+                            break;
+                        case 'a': // Bell (alert)
+                            temp.Append("\a");
+                            break;
+                        case 'b': // Backspace
+                            temp.Append("\b");
+                            break;
+                        default:
+                            Console.WriteLine(@"Unexpected escape sequence: \" + escapeSequence);
+                            break;
+                    }
+                } else {
+                    temp.Append((char)Read());
                 }
-                temp.Append(((char)Read()).ToString());
             }
 
-            Read();
             return new Token(TokenType.String, temp.ToString());
         }
 

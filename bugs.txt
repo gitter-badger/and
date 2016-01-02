@@ -3,8 +3,3 @@ Düzeltilecekler sorunlar
 [LEXER]
  1) Parantez çeşitlerinde son karakter okunmuyor.
  		Kapanan parantezlerden sonra 1 karakter boşluk olmadığı durumlarda oluşuyor bu sorun.
- 2) Kaçış dizisinde ard arda kullanımda 2. dizi okunmuyor.
- 		Örn: "Hello\n\tWorld!\a"  -->   \n okunurken, \t dizisi es geçiliyor.
- 			 "Hello\n \tWorld!\a" -->   Sorun yok, okuyor. Ancak istediğimiz bu değil.
-
-2. sorun ScanString fonksiyonunda kaçış dizileri parse edilirken oluşan bir hatadan kaynaklanıyor muhtemelen.
