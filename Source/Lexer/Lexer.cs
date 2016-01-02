@@ -95,6 +95,10 @@ namespace And {
                 case '=': case '+': case '-': case '*': case '/': case '.':
                 case '%': case '?': case '!': case '<': case '>':
                     return new Token(TokenType.Operator, currentChar.ToString());
+
+                case '&': case '|':
+                    Console.WriteLine($"Unexpected token: {currentChar}");
+                    return null;
             }
 
             return null;
@@ -227,7 +231,7 @@ namespace And {
         private int Read()
             => _position < _sourceCode.Length
                ? _sourceCode[_position++]
-               : '\0'; // if not, return null char instead of -1
+               : '\0'; // if not, return null char
 
         private int Read(byte iter = 1)
             => _position < _sourceCode.Length

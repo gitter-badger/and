@@ -1,5 +1,5 @@
 Düzeltilecekler sorunlar
 
 [LEXER]
- 1) Parantez çeşitlerinde son karakter okunmuyor.
- 		Kapanan parantezlerden sonra 1 karakter boşluk olmadığı durumlarda oluşuyor bu sorun.
+ 1) Bazı durumlarda son karakter okunmuyor.
+ 		Kapanan parantezlerden ve rakamlardan sonra 1 karakter boşluk olmadığı durumlarda oluşuyor.
