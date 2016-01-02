@@ -211,11 +211,11 @@ namespace And {
                             Console.WriteLine(@"Unexpected escape sequence: \" + escapeSequence);
                             break;
                     }
-                } else {
-                    temp.Append((char)Read());
                 }
+                else temp.Append((char)Read());
             }
 
+            Read();
             return new Token(TokenType.String, temp.ToString());
         }
 
