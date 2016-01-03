@@ -39,12 +39,14 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Lexer\Exception\Exception.cs" />
     <Compile Include="Lexer\Lexer.cs" />
     <Compile Include="Lexer\Token.cs" />
     <Compile Include="Lexer\Type.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Parser\AstNode.cs" />
     <Compile Include="Parser\Parser.cs" />
+    <Compile Include="Parser\Stream.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

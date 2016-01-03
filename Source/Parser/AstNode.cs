@@ -4,13 +4,13 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace And
+namespace And.Parser
 {
     using System.Collections.Generic;
 
     public abstract class AstNode
     {
-        public List<AstNode> Children { get; private set;}
+        public List<AstNode> Children { get; }
 
         protected AstNode() {
             Children = new List<AstNode>();
