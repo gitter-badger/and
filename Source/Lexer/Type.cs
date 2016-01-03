@@ -4,7 +4,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace And {
+namespace And.Lexer {
     public enum TokenType {
         // TODO: Support for Bitwise operators and more Assignment operators. 
         Comma,

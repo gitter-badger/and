@@ -4,6 +4,8 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
+using And.Lexer;
+
 namespace And {
     using System;
     using System.IO;
@@ -82,7 +84,7 @@ namespace And {
             var sw = new Stopwatch();
             sw.Start();
 
-                var lexer = new Lexer(sourceCode);
+                var lexer = new LexicalAnalyser(sourceCode);
                 LinkedList<Token> tokens = lexer.Tokenize();
 
             sw.Stop();

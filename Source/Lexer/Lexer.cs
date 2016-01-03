@@ -4,17 +4,18 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace And {
-    using System;
+using And.Lexer.Exception;
+
+namespace And.Lexer {
     using System.Text;
     using System.Collections.Generic;
 
-    public class Lexer
+    public class LexicalAnalyser
     {
         private readonly string _sourceCode;
         private int _position;
 
-        public Lexer(string sourceCode) {
+        public LexicalAnalyser(string sourceCode) {
             _sourceCode = sourceCode;
         }
 
@@ -67,8 +68,7 @@ namespace And {
                     if (char.IsLetter(currentChar))
                         return Identifier();
 
-                    Console.WriteLine($"Unexpected token: '{(char)Read()}'");
-                    return null;
+                    throw new UnexpectedTokenException($"Unexpected token: '{(char)Read()}'");
             }
         }
 
@@ -96,12 +96,9 @@ namespace And {
                 case '%': case '?': case '!': case '<': case '>':
                     return new Token(TokenType.Operator, currentChar.ToString());
 
-                case '&': case '|':
-                    Console.WriteLine($"Unexpected token: {currentChar}");
-                    return null;
+                default:
+                    throw new UnexpectedTokenException($"Unexpected token: {currentChar}");
             }
-
-            return null;
         }
         
         public LinkedList<Token> Tokenize()
@@ -212,8 +209,7 @@ namespace And {
                             temp.Append("\b");
                             break;
                         default:
-                            Console.WriteLine(@"Unexpected escape sequence: \" + escapeSequence);
-                            break;
+                            throw new UnexpectedEscapeSequenceException(@"Unexpected escape sequence: \" + escapeSequence);
                     }
                 }
                 else temp.Append((char)Read());

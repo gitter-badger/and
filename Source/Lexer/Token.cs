@@ -4,7 +4,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace And {
+namespace And.Lexer {
     public class Token
     {
         public TokenType Type { get; }
