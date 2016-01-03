@@ -26,7 +26,7 @@ func main(args) {
 Durum [![](https://ci.appveyor.com/api/projects/status/bs3n424y3bk1ejg4?svg=true)](https://ci.appveyor.com/project/ertseyhan/and)
 ------
 
-Lexical analyser aşamasından şuan memnunum. Özellikle son yaptığım değişiklikler ile beraber güzel bir performans kazancı elde ettim. Ortalama bir test süreci 10 milisaniye sürerken, 4 milisaniyelere kadar düştü. Lexer'in gelişimi zaman ile devam edecek. Şuan işin asıl önemli kısmına, Parser ve AST'ye geldik. Bu konu hakkında teorik olarak hazırlanıyorum. Normal kaynakların dışında modern tasarım desenlerini vs. inceliyorum.  
+Lexical analyser bölümünden şuan memnunum. Özellikle son yaptığım değişiklikler ile beraber güzel bir performans kazancı elde ettim. Ortalama bir test süreci 10 milisaniye sürerken, 4 milisaniyelere kadar düştü. Lexer'in gelişimi zaman ile devam edecek. Şuan işin asıl önemli kısmına, Parser ve AST'ye geldik. Bu konu hakkında teorik olarak hazırlanıyorum. Normal kaynakların dışında modern tasarım desenlerini vs. inceliyorum.  
 
 Teorik araştırma ve çalışmalarla beraber götürüyorum projeyi.  
 Dolayısıyla yavaş ilerleyecektir.
