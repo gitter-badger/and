@@ -7,5 +7,5 @@ using System.Resources;
 [assembly: AssemblyDescription("Experimental Programming language project")]
 [assembly: AssemblyTrademark("Ertuğrul Seyhan")]
 [assembly: AssemblyCopyright("Copyright (c) 2016 Ertuğrul Seyhan")]
-[assembly: AssemblyVersion("1.0.0")]
+[assembly: AssemblyVersion("0.1.0")]
 [assembly: NeutralResourcesLanguage("en-US")]

@@ -1,4 +1,4 @@
-Düzeltilecekler sorunlar
+Düzeltilecek sorunlar
 
 [LEXER]
  1) Bazı durumlarda son karakter okunmuyor.

@@ -19,6 +19,9 @@ namespace And {
     {
         private static void Main(string[] args)
         {
+            Title = "And REPL";
+            WriteLine("And REPL v0.1.15 - Copyright(c) 2016 - Ertuğrul Seyhan");
+            
             if (args.Length > 0) {
                 if (!File.Exists(args[0]))
                     return;
@@ -35,7 +38,7 @@ namespace And {
                 return;
             }
 
-            Write("Please specify an input source or start with an argument\n");
+            Write("\nPlease specify an input source or start with an argument\n");
             do
             {
                 inputSource:
