@@ -2,6 +2,8 @@
 And Projesi
 ======
 
+[![Join the chat at https://gitter.im/andlanguage/and](https://badges.gitter.im/andlanguage/and.svg)](https://gitter.im/andlanguage/and?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 And, betik tabanlı(script oriented) programlama dili projesidir.
 
 Bu projede temel hedefim;  
