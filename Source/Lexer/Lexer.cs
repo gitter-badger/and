@@ -24,7 +24,7 @@ namespace And.Lexer {
             char currentChar = (char)Peek();
             switch (currentChar) {
                 case '#':
-                    return SingleLineComment();
+                    return ScanComment();
                 case '\'':
                 case '"':
                     return ScanString();
@@ -80,7 +80,7 @@ namespace And.Lexer {
             switch (twoChar) {
                 case "/*":
                     Read();
-                    return MultiLineComment();
+                    return ScanComment(true);
                 case "&&": case "||":
                 case "==": case "!=":
                 case "<=": case ">=":
@@ -143,26 +143,22 @@ namespace And.Lexer {
                     return new Token(TokenType.Identifier, temp.ToString());
             }
         }
-        
-        private Token SingleLineComment()
+
+        private Token ScanComment(bool multiline = false)
         {
-            Read();
             var temp = new StringBuilder();
-            while (Peek() != '\n' && _position < _sourceCode.Length) {
-                temp.Append(((char)Read()).ToString());
+            if (multiline) {
+                while (Peek() != '*' && Peek(1) != '/' && _position < _sourceCode.Length)
+                    temp.Append((char) Read());
+
+                Read();
+                return new Token(TokenType.Comment, temp.ToString());
             }
 
             Read();
-            return new Token(TokenType.Comment, temp.ToString());
-        }
-
-        private Token MultiLineComment()
-        {
-            var temp = new StringBuilder();
-            while (Peek() != '*' && Peek(1) != '/' && _position < _sourceCode.Length)
-                temp.Append((char)Read());
-            
-            Read(2);
+            while (Peek() != '\n' && _position < _sourceCode.Length)
+                temp.Append((char) Read());
+                
             return new Token(TokenType.Comment, temp.ToString());
         }
 
