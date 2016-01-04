@@ -1,17 +1,22 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="Parser.cs" author="Ertuğrul Seyhan">
+// <copyright file="NodeNumber.cs" author="Ertuğrul Seyhan">
 //   Licensed under the MIT license. See LICENSE file in the project root for full license information.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace And.Parser
 {
-    public class Parser {
-        public readonly Stream Stream;
-        public int Position;
+    public class NodeNumber : AstNode
+    {
+        public int Value { get; set; }
 
-        public Parser(Stream stream) {
-            Stream = stream;
+        public NodeNumber(int position, int value)
+            : base(position)
+        {
+            Value = value;
         }
+
+        public override void Visit(IAstVisitor visitor)
+            => visitor.Visit(this);
     }
 }

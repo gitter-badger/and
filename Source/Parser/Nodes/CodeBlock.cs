@@ -1,17 +1,15 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="Parser.cs" author="Ertuğrul Seyhan">
+// <copyright file="CodeBlock.cs" author="Ertuğrul Seyhan">
 //   Licensed under the MIT license. See LICENSE file in the project root for full license information.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace And.Parser
-{
-    public class Parser {
-        public readonly Stream Stream;
-        public int Position;
+namespace And.Parser {
+    public class CodeBlock : AstNode
+    {
+        public CodeBlock(int position) : base(position) { }
 
-        public Parser(Stream stream) {
-            Stream = stream;
-        }
+        public override void Visit(IAstVisitor visitor)
+            => visitor.Visit(this);
     }
 }

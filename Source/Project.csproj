@@ -45,9 +45,21 @@
     <Compile Include="Lexer\Type.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Parser\AstNode.cs" />
+    <Compile Include="Parser\IAstVisitor.cs" />
+    <Compile Include="Parser\Nodes\CodeBlock.cs" />
+    <Compile Include="Parser\Nodes\NodeExpr.cs" />
+    <Compile Include="Parser\Nodes\NodeFuncCall.cs" />
+    <Compile Include="Parser\Nodes\NodeFuncDecl.cs" />
+    <Compile Include="Parser\Nodes\NodeIdentifier.cs" />
+    <Compile Include="Parser\Nodes\NodeNumber.cs" />
+    <Compile Include="Parser\Nodes\NodeStatement.cs" />
+    <Compile Include="Parser\Nodes\NodeString.cs" />
     <Compile Include="Parser\Parser.cs" />
     <Compile Include="Parser\Stream.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

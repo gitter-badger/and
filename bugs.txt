@@ -3,3 +3,6 @@ Düzeltilecek sorunlar
 [LEXER]
  1) Bazı durumlarda son karakter okunmuyor.
  		Kapanan parantezlerden ve rakamlardan sonra 1 karakter boşluk olmadığı durumlarda oluşuyor.
+ 2) String dize'lerinin başlangıcından sonra kapanıp kapanmadığı kontrol edilmiyor.
+ 		Örn: "Hello, World" --> Kapalı dize.
+ 			 "Hello, World  --> Sonu açık. Kontrol edilmiyor.
